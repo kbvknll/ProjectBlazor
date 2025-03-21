@@ -1,0 +1,32 @@
+﻿@page "/login"
+@using ProjectBlazor.Services
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<h3>Вход</h3>
+
+<EditForm Model="@loginRequest" OnValidSubmit="HandleSubmit">
+    <InputText @bind-Value="loginRequest.Username" placeholder="Логин" />
+    <InputText @bind-Value="loginRequest.Password" placeholder="Пароль" type="password" />
+    <button type="submit">Войти</button>
+</EditForm>
+
+@code {
+    private LoginRequest loginRequest = new();
+
+    private async Task HandleSubmit()
+    {
+        var token = await AuthService.LoginAsync(loginRequest.Username, loginRequest.Password);
+        if (!string.IsNullOrEmpty(token))
+        {
+            // Сохраните токен (например, в localStorage)
+            Navigation.NavigateTo("/");
+        }
+    }
+
+    public class LoginRequest
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}

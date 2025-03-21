@@ -1,0 +1,35 @@
+﻿@page "/edit-project/{id:int}"
+@using ProjectBlazor.Models
+@using ProjectBlazor.Services
+@inject ProjectService ProjectService
+@inject NavigationManager Navigation
+
+<h3>Редактирование проекта</h3>
+
+<EditForm Model="@project" OnValidSubmit="HandleSubmit">
+    <InputText @bind-Value="project.Name" placeholder="Название" />
+    <InputDate @bind-Value="project.StartDate" placeholder="Дата начала" />
+    <InputDate @bind-Value="project.EndDate" placeholder="Дата окончания" />
+    <InputNumber @bind-Value="project.Cost" placeholder="Стоимость" />
+    <button type="submit">Сохранить</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Project project = new();
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        // Загружаем проект по ID
+        project = await ProjectService.GetProjectAsync(Id);
+    }
+
+    private async System.Threading.Tasks.Task HandleSubmit()
+    {
+        // Обновляем проект
+        await ProjectService.UpdateProjectAsync(Id, project);
+        Navigation.NavigateTo("/projects"); // Возвращаемся на страницу проектов
+    }
+}

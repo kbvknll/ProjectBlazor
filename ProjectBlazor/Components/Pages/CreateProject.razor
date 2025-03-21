@@ -1,0 +1,25 @@
+﻿@page "/create-project"
+@using ProjectBlazor.Models
+@using ProjectBlazor.Services
+@inject ProjectService ProjectService
+@inject NavigationManager Navigation
+
+<h3>Создать проект</h3>
+
+<EditForm Model="@project" OnValidSubmit="HandleSubmit">
+    <InputText @bind-Value="project.Name" placeholder="Название" />
+    <InputDate @bind-Value="project.StartDate" placeholder="Дата начала" />
+    <InputDate @bind-Value="project.EndDate" placeholder="Дата окончания" />
+    <InputNumber @bind-Value="project.Cost" placeholder="Стоимость" />
+    <button type="submit">Создать</button>
+</EditForm>
+
+@code {
+    private Project project = new();
+
+    private async System.Threading.Tasks.Task HandleSubmit()
+    {
+        await ProjectService.CreateProjectAsync(project);
+        Navigation.NavigateTo("/projects");
+    }
+}
