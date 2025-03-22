@@ -19,7 +19,6 @@
         var token = await AuthService.LoginAsync(loginRequest.Username, loginRequest.Password);
         if (!string.IsNullOrEmpty(token))
         {
-            // Сохраните токен (например, в localStorage)
             Navigation.NavigateTo("/");
         }
     }

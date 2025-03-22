@@ -22,14 +22,12 @@
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        // Загружаем проект по ID
         project = await ProjectService.GetProjectAsync(Id);
     }
 
     private async System.Threading.Tasks.Task HandleSubmit()
     {
-        // Обновляем проект
         await ProjectService.UpdateProjectAsync(Id, project);
-        Navigation.NavigateTo("/projects"); // Возвращаемся на страницу проектов
+        Navigation.NavigateTo("/projects"); 
     }
 }

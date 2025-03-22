@@ -37,7 +37,6 @@ namespace ProjectBlazor.Services
             return null;
         }
 
-        // Генерация JWT-токена
         public string GenerateJwtToken(User user)
         {
             var jwtSettings = _configuration.GetSection("Jwt");

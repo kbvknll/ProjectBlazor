@@ -63,6 +63,6 @@ else
     private async System.Threading.Tasks.Task DeleteProject(int id)
     {
         await ProjectService.DeleteProjectAsync(id);
-        projects = await ProjectService.GetProjectsAsync(); // Обновляем список проектов
+        projects = await ProjectService.GetProjectsAsync(); 
     }
 }
